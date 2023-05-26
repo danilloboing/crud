@@ -30,7 +30,9 @@ const BotaoCustomizado = styled.button`
     `}
 
   ${props => props.disabled &&`
-    cursor: not-allowed;
+    &:hover {
+      cursor: not-allowed;
+    }
     opacity: 0.7
   `}
 `;
