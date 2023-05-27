@@ -70,7 +70,7 @@ const CadastroUsuario = () => {
           <SignupLink>
             Already have an account? 
           </SignupLink>
-          <StyledLink href="/login">Log in</StyledLink>
+          <StyledLink href="/">Log in</StyledLink>
         </InputsContainer>
       <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
       </Form>
