@@ -62,65 +62,66 @@ const Form = ({ getCars, onEdit, setOnEdit }) => {
     }
   }, [onEdit]);
 
-  const submit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const car = ref.current;
 
-    if (!car.nome_carros.value ||
-       !car.placa.value ||
-       !car.disponibilidade.value
-      ) {
+    if (
+      !car.nome_carros.value ||
+      !car.placa.value ||
+      !car.disponibilidade.value
+    ) {
       return toast.warn("Preencha todos os campos!");
     }
 
-    if (onEdit) {
-      //UPDATE
-      await axios
-        .put("http://localhost:8000/" + onEdit.idcarros, {
-          nome_carros: car.nome_carros.value,
-          placa: car.placa.value,
-          disponibilidade: car.disponibilidade.value,
-        })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
-    } else {
-      //POST
-      await axios
-        .post("http://localhost:8000", {
-          nome_carros: car.nome_carros.value,
-          placa: car.placa.value,
-          disponibilidade: car.disponibilidade.value,
-        })
-        .then(({ data }) => toast.success(data))
-        .catch(({ data }) => toast.error(data));
-    }
+      if (onEdit != undefined || onEdit != null) {
+        await axios
+          .put("http://localhost:3001/" + onEdit.idcarros, {
+            nome_carros: car.nome_carros.value,
+            placa: car.placa.value,
+            disponibilidade: car.disponibilidade.value,
+          })
+          .then(({ data }) => toast.success(data))
+          .catch(({ data }) => toast.error(data));
+        } else {
+          await axios
+          .post("http://localhost:3001", {
+            nome_carros: car.nome_carros.value,
+            placa: car.placa.value,
+            disponibilidade: car.disponibilidade.value,
+          })
+          .then(({ data }) => toast.success(data))
+          .catch(({ data }) => toast.error(data));
+        }
 
-    Form.nome_carros.value = "";
-    Form.placa.value = "";
+    car.nome_carros.value = "";
+    car.placa.value = "";
+    car.disponibilidade.value = "";
 
     setOnEdit(null);
     getCars();
   };
 
   return (
-    <FormContainer ref={ref} onSubmit={submit}>
+    <FormContainer ref={ref} onSubmit={handleSubmit}>
       <InputArea>
-        <Label>Carro</Label>
-        <Input name="nome_carros" placeholder="Modelo, ano, ..." />
+        <Label>Car</Label>
+        <Input name="nome_carros" type="text" placeholder="Car model, year, ..." />
       </InputArea>
       <InputArea>
-        <Label>Placa</Label>
-        <Input name="placa" placeholder="ABC1D34" maxLength={8} />
+        <Label>License plate</Label>
+        <Input name="placa" type="text" placeholder="ABC1D34" maxLength={8} />
       </InputArea>
       <InputArea>
-        <Label>Está disponível?</Label>
+        <Label>Is it available?</Label>
         <Select name="disponibilidade">
-          <option value="SIM">Sim</option>
-          <option value="NAO">Não</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
         </Select>
       </InputArea>
 
-      <Button type="submit">SALVAR</Button>
+      <Button type="submit">SAVE</Button>
     </FormContainer>
   );
 };

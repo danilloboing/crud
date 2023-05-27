@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css"
 import axios from "axios";
 
 const Container = styled.div`
-  width: 100%;
   max-width: 800px;
   margin-top: 20px;
   display: flex;
@@ -17,9 +16,18 @@ const Container = styled.div`
   gap: 10px;
 `;
 
+ const StyledLink = styled.a`
+    line-height: 1.5;
+    font-weight: 700;
+    font-size: .875rem;
+    margin-left: .25rem;
+    color: #1e88e5;
+    text-align: center;
+    margin: auto;
+  `;
+
 // eslint-disable-next-line
 const Title = styled.h2``;
-
 
 function CarRegistration() {
 
@@ -28,7 +36,7 @@ function CarRegistration() {
 
   const getCars = async () => {
     try {
-      const res = await axios.get("http://localhost:8000");
+      const res = await axios.get("http://localhost:3001");
       setCars(res.data.sort((a, b) => (a.nome_carros > b.nome_carros ? 1 : -1)))
     } catch (error) {
       toast.error(error);
@@ -42,9 +50,10 @@ function CarRegistration() {
   return (
     <>
       <Container>
-        <Title>CARROS</Title>
+        <Title>FLEET VEHICLES</Title>
         <Form onEdit={onEdit} setOnEdit={setOnEdit} getCars={getCars} />
-        <Grid cars={cars} setCars={setCars} setOnEdit={setOnEdit}/>
+        <Grid setOnEdit={setOnEdit} cars={cars} setCars={setCars} />
+      <StyledLink href="/">Log out</StyledLink>
       </Container>
       <ToastContainer autoClose={3000} position={toast.POSITION.CENTER} />
       <GlobalStyle />

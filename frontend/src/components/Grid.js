@@ -4,15 +4,18 @@ import styled from "styled-components";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-const Table = styled.table`
-  width: 100%;
+export const GridContainer = styled.div`
+  overflow-x: auto;
+  width: 100vw;
+`;
+
+export const Table = styled.table`
   background-color: #fff;
   padding: 20px;
   box-shadow: 0px 0px 5px #ccc;
   border-radius: 5px;
-  max-width: 1120px;
   margin: 20px auto;
-  word-break: break-all;
+  box-sizing: border-box;
 `;
 
 export const Thead = styled.thead``;
@@ -25,12 +28,28 @@ export const Th = styled.th`
   text-align: start;
   border-bottom: inset;
   padding-bottom: 5px;
+
+  @media (max-width: 500px) {
+    ${(props) => props.onlyWeb && "display: none"}
+  }
 `;
 
 export const Td = styled.td`
   padding-top: 15px;
   text-align: ${(props) => (props.alignCenter ? "center" : "start")};
   width: ${(props) => (props.width ? props.width : "auto")};
+
+  @media (max-width: 500px) {
+    ${(props) => props.onlyWeb && "display: none"}
+  }
+`;
+
+export const EditIcon = styled(FaEdit) `
+  cursor: pointer;
+`;
+
+export const TrashIcon = styled(FaTrash) `
+  cursor: pointer;
 `;
 
 const Grid = ({ cars={cars}, setCars={setCars}, setOnEdit={setOnEdit} }) => {
@@ -40,7 +59,7 @@ const Grid = ({ cars={cars}, setCars={setCars}, setOnEdit={setOnEdit} }) => {
 
   const deletaCarros = async (idcarros) => {
     await axios
-      .delete("http://localhost:8000/" + idcarros)
+      .delete("http://localhost:3001/" + idcarros)
       .then (({ data }) => {
         const novoArray = cars.filter((car) => car.idcarros !== idcarros);
 
@@ -53,38 +72,40 @@ const Grid = ({ cars={cars}, setCars={setCars}, setOnEdit={setOnEdit} }) => {
   };
 
   return(
-    <Table>
-      <Thead>
-        <Tr>
-          <Th>Carro</Th>
-          <Th>Placa</Th>
-          <Th>Está disponível?</Th>
-          <Th></Th>
-          <Th></Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-        {cars.map((item, i) => (
-          <Tr key={i}>
-            <Td width="40%">
-              {item.nome_carros}
-            </Td>
-            <Td width="30%">
-              {item.placa}
-            </Td>
-            <Td width="20%">
-              {item.disponibilidade}
-            </Td>
-            <Td width="5%">
-              <FaEdit onClick={() => editaCarros(item)}></FaEdit>
-            </Td>
-            <Td width="5%">
-              <FaTrash onClick={() => deletaCarros(item.idcarros)}></FaTrash>
-            </Td>
+    <GridContainer>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Car</Th>
+            <Th>License plate</Th>
+            <Th onlyWeb>Is it available?</Th>
+            <Th></Th>
+            <Th></Th>
           </Tr>
-        ))}
-      </Tbody>
-    </Table>
+        </Thead>
+        <Tbody>
+          {cars.map((item, i) => (
+            <Tr key={i}>
+              <Td width="40%">
+                {item.nome_carros}
+              </Td>
+              <Td width="20%">
+                {item.placa}
+              </Td>
+              <Td width="20%" onlyWeb>
+                {item.disponibilidade}
+              </Td>
+              <Td width="5%">
+                <EditIcon onClick={() => editaCarros(item)}></EditIcon>
+              </Td>
+              <Td width="5%">
+                <TrashIcon onClick={() => deletaCarros(item.idcarros)}></TrashIcon>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </GridContainer>
   )
 }
 

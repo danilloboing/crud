@@ -4,7 +4,7 @@ export const getCar = (_, res) => {
   const q = "SELECT * FROM carros";
 
   db.query (q, (err, data) => {
-    
+    if (err) return res.json(err);
     return res.status(200).json(data);
   })
 };
@@ -36,7 +36,7 @@ export const updateCar = (req, res) => {
     req.body.disponibilidade,
   ];
 
-  db.query(q, [...values, req.params.id], (err) => {
+  db.query(q, [...values, req.params.idcarros], (err) => {
     if (err) return res.json(err);
 
     return res.status(200).json("Carro atualizado com sucesso!");
@@ -47,7 +47,7 @@ export const updateCar = (req, res) => {
 export const deleteCar = (req, res) => {
   const q = "DELETE FROM carros WHERE `idcarros` = ?";
 
-  db.query(q, [req.params.id], (err) => {
+  db.query(q, [req.params.idcarros], (err) => {
     if (err) return res.json(err);
 
     return res.status(200).json("Carro deletado com sucesso.");

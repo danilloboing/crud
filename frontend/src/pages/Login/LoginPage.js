@@ -3,42 +3,30 @@ import { toast, ToastContainer } from "react-toastify";
 import Input from '../../components/Input'
 import Botao from '../../components/Botao';
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'
 import { validaEmail, validaSenha } from "../../Utils/validators";
-import axios from 'axios';
+
 
 const LoginPage = () => {
 
   const [loading, setLoading] = useState();
   const [form, setForm] = useState({})
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
       setLoading(true)
+      
       if (validaEmail(form.email) && validaSenha(form.password)) {
-        toast.success("Login Submitado")
-        
+        toast.success("Login Válido")
+        navigate('/home')
       } else {
-        toast.warn("E-mail inválido")
-       
+        toast.error("Login Inválido");
       }
       setLoading(false)
-
-      axios.post("http://localhost:8000", {
-        email: form.email,
-        password: form.password
-
-      }) .then((response) => {
-        alert(response.data.msg);
-        console.log(response);
-      });
-      
-    } catch (error) {
-      toast.error(error);
-    }
   };
-
+  
 
   const handleChange = (event) => {
     setForm({...form, [event.target.name]: event.target.value})
@@ -76,7 +64,7 @@ const LoginPage = () => {
           <SignupLink>
             Don't have an account? 
           </SignupLink>
-          <StyledLink href="#">Sign up</StyledLink>
+          <StyledLink href="/cadastro">Sign up</StyledLink>
         </InputsContainer>
       <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
       </Form>

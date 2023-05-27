@@ -1,15 +1,17 @@
 import express from "express"
 import cors from "cors"
-import { userRoutes } from "./routes/users.mjs";
-import { carRouter } from "./routes/cars.mjs";
+/* import { userRouter } from "./routes/users.mjs"; */
+import carRoutes from "./routes/cars.mjs";
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-app.use("/login", userRoutes)
+/* app.post("/", userRouter) */
 
-app.use("/", carRouter)
+app.use("/", carRoutes)
 
-app.listen(8000);
+app.listen(3001, () => {
+  console.log("Servidor rodando")
+});
