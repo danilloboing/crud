@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-  //STYLES CSS
 export const FormContainer = styled.div`
     display: flex;
     justify-content: center;
@@ -20,6 +19,9 @@ export const Form = styled.form`
     width: 22rem;
     background-clip: border-box;
     background: white;
+    -webkit-box-shadow: 0px 0px 20px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 20px -6px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 20px -6px rgba(0,0,0,0.75);
   `;
 
 export const Header = styled.header`
