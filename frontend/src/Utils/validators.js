@@ -1,8 +1,3 @@
-
-const validaUsuario = (user_name) => {
-  return user_name?.toString().length > 4
-};
-
 const validaSenha = (password) => {
   return password?.toString().length > 6
 }
@@ -18,4 +13,5 @@ const validaConfirmarSenha = (password, confirmarSenha) => {
 export {
   validaEmail,
   validaSenha,
+  validaConfirmarSenha
 }
