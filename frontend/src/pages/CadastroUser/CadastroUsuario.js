@@ -62,7 +62,7 @@ const CadastroUsuario = () => {
           />
             <Botao
             type='submit'
-            text='Log In'
+            text='Register'
             onClick={handleSubmit}
             disabled={loading === true || !validadorInput()}
           />
