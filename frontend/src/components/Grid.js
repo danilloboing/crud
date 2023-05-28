@@ -76,11 +76,11 @@ const Grid = ({ cars={cars}, setCars={setCars}, setOnEdit={setOnEdit} }) => {
       <Table>
         <Thead>
           <Tr>
-            <Th>Car</Th>
-            <Th>License plate</Th>
-            <Th onlyWeb>Is it available?</Th>
-            <Th></Th>
-            <Th></Th>
+            <Th width="40%">Car</Th>
+            <Th width="20%">License plate</Th>
+            <Th width="20%" onlyWeb>Is it available?</Th>
+            <Th width="5%"></Th>
+            <Th width="5%"></Th>
           </Tr>
         </Thead>
         <Tbody>
