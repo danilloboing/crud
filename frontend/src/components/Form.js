@@ -75,7 +75,7 @@ const Form = ({ getCars, onEdit, setOnEdit }) => {
       return toast.warn("Preencha todos os campos!");
     }
 
-      if (onEdit != undefined || onEdit != null) {
+      if (onEdit) {
         await axios
           .put("http://localhost:3001/" + onEdit.idcarros, {
             nome_carros: car.nome_carros.value,

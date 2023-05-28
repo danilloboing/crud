@@ -32,7 +32,7 @@ const Title = styled.h2``;
 function CarRegistration() {
 
   const [cars, setCars] = useState([]);
-  const [onEdit, setOnEdit] = useState([null]);
+  const [onEdit, setOnEdit] = useState(null);
 
   const getCars = async () => {
     try {
